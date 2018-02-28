@@ -423,4 +423,5 @@ def margin_balance(symbol):
 
 
 if __name__ == '__main__':
-    print (get_symbols())
+    print (get_kline("btcusdt", "5min", 2))
+    print (get_trade("btcusdt"))
