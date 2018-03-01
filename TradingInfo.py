@@ -19,7 +19,12 @@ if __name__ == '__main__':
         f.write("time, open, close, low, high, amount, vol\n")
     try:
         while True:
-            result = hs.get_kline(symbol, period, 2)
+            result = []
+            try:
+                result = hs.get_kline(symbol, period, 2)
+            except:
+                time.sleep(10)
+                continue
             data = result['data'][-1]
             cur_time = datetime.datetime.fromtimestamp(int(result['ts'])/1000).strftime('%Y-%m-%d %H:%M:%S')
             str_open = str(data['open'])
@@ -31,6 +36,6 @@ if __name__ == '__main__':
             with open(filename, 'a') as f:
                 data_info = cur_time + "," + str_open + "," + str_close + "," + str_low + "," + str_high + "," + str_amount + "," + str_vol + "\n"
                 f.write(data_info)
-
+            time.sleep(waitTime)
     except KeyboardInterrupt:
         pass
